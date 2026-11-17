@@ -1,0 +1,142 @@
+{
+    "about": "Webhook-Signature cases made by Orboni's server (App\\Gateway\\Webhooks\\Signature). Verify each with tolerance 300 at the time \"now\" (Unix seconds); \"valid\" is the answer.",
+    "tolerance": 300,
+    "cases": [
+        {
+            "name": "valid",
+            "body": "{\"id\":\"evt_3Fh8Kq2Lm9Np4Rs7Tv1Wx6Yz\",\"object\":\"event\",\"type\":\"checkout.session.completed\",\"livemode\":false,\"created\":1795000000,\"data\":{\"object\":{\"id\":\"cs_test_a1B2c3D4e5F6g7H8i9J0k1L2\",\"object\":\"checkout.session\",\"status\":\"complete\",\"payment_status\":\"paid\",\"amount_total\":2500,\"currency\":\"usd\",\"metadata\":{\"order_id\":\"1042\"}}}}",
+            "header": "t=1795000000,v1=8a0e0ce8450df1467e001c6dfba54b817c95299d0a0769c76291b38cc3da17cd",
+            "secret": "whsec_1f0c9a6b3e8d47a2b5c4e9f07d1a3b6c",
+            "now": 1795000000,
+            "valid": true
+        },
+        {
+            "name": "valid within the tolerance",
+            "body": "{\"id\":\"evt_3Fh8Kq2Lm9Np4Rs7Tv1Wx6Yz\",\"object\":\"event\",\"type\":\"checkout.session.completed\",\"livemode\":false,\"created\":1795000000,\"data\":{\"object\":{\"id\":\"cs_test_a1B2c3D4e5F6g7H8i9J0k1L2\",\"object\":\"checkout.session\",\"status\":\"complete\",\"payment_status\":\"paid\",\"amount_total\":2500,\"currency\":\"usd\",\"metadata\":{\"order_id\":\"1042\"}}}}",
+            "header": "t=1795000000,v1=8a0e0ce8450df1467e001c6dfba54b817c95299d0a0769c76291b38cc3da17cd",
+            "secret": "whsec_1f0c9a6b3e8d47a2b5c4e9f07d1a3b6c",
+            "now": 1795000300,
+            "valid": true
+        },
+        {
+            "name": "valid, clock behind",
+            "body": "{\"id\":\"evt_3Fh8Kq2Lm9Np4Rs7Tv1Wx6Yz\",\"object\":\"event\",\"type\":\"checkout.session.completed\",\"livemode\":false,\"created\":1795000000,\"data\":{\"object\":{\"id\":\"cs_test_a1B2c3D4e5F6g7H8i9J0k1L2\",\"object\":\"checkout.session\",\"status\":\"complete\",\"payment_status\":\"paid\",\"amount_total\":2500,\"currency\":\"usd\",\"metadata\":{\"order_id\":\"1042\"}}}}",
+            "header": "t=1795000000,v1=8a0e0ce8450df1467e001c6dfba54b817c95299d0a0769c76291b38cc3da17cd",
+            "secret": "whsec_1f0c9a6b3e8d47a2b5c4e9f07d1a3b6c",
+            "now": 1794999700,
+            "valid": true
+        },
+        {
+            "name": "too old",
+            "body": "{\"id\":\"evt_3Fh8Kq2Lm9Np4Rs7Tv1Wx6Yz\",\"object\":\"event\",\"type\":\"checkout.session.completed\",\"livemode\":false,\"created\":1795000000,\"data\":{\"object\":{\"id\":\"cs_test_a1B2c3D4e5F6g7H8i9J0k1L2\",\"object\":\"checkout.session\",\"status\":\"complete\",\"payment_status\":\"paid\",\"amount_total\":2500,\"currency\":\"usd\",\"metadata\":{\"order_id\":\"1042\"}}}}",
+            "header": "t=1795000000,v1=8a0e0ce8450df1467e001c6dfba54b817c95299d0a0769c76291b38cc3da17cd",
+            "secret": "whsec_1f0c9a6b3e8d47a2b5c4e9f07d1a3b6c",
+            "now": 1795000301,
+            "valid": false
+        },
+        {
+            "name": "from the future",
+            "body": "{\"id\":\"evt_3Fh8Kq2Lm9Np4Rs7Tv1Wx6Yz\",\"object\":\"event\",\"type\":\"checkout.session.completed\",\"livemode\":false,\"created\":1795000000,\"data\":{\"object\":{\"id\":\"cs_test_a1B2c3D4e5F6g7H8i9J0k1L2\",\"object\":\"checkout.session\",\"status\":\"complete\",\"payment_status\":\"paid\",\"amount_total\":2500,\"currency\":\"usd\",\"metadata\":{\"order_id\":\"1042\"}}}}",
+            "header": "t=1795000000,v1=8a0e0ce8450df1467e001c6dfba54b817c95299d0a0769c76291b38cc3da17cd",
+            "secret": "whsec_1f0c9a6b3e8d47a2b5c4e9f07d1a3b6c",
+            "now": 1794999699,
+            "valid": false
+        },
+        {
+            "name": "wrong secret",
+            "body": "{\"id\":\"evt_3Fh8Kq2Lm9Np4Rs7Tv1Wx6Yz\",\"object\":\"event\",\"type\":\"checkout.session.completed\",\"livemode\":false,\"created\":1795000000,\"data\":{\"object\":{\"id\":\"cs_test_a1B2c3D4e5F6g7H8i9J0k1L2\",\"object\":\"checkout.session\",\"status\":\"complete\",\"payment_status\":\"paid\",\"amount_total\":2500,\"currency\":\"usd\",\"metadata\":{\"order_id\":\"1042\"}}}}",
+            "header": "t=1795000000,v1=8a0e0ce8450df1467e001c6dfba54b817c95299d0a0769c76291b38cc3da17cd",
+            "secret": "whsec_9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b",
+            "now": 1795000000,
+            "valid": false
+        },
+        {
+            "name": "body changed",
+            "body": "{\"id\":\"evt_3Fh8Kq2Lm9Np4Rs7Tv1Wx6Yz\",\"object\":\"event\",\"type\":\"checkout.session.completed\",\"livemode\":false,\"created\":1795000000,\"data\":{\"object\":{\"id\":\"cs_test_a1B2c3D4e5F6g7H8i9J0k1L2\",\"object\":\"checkout.session\",\"status\":\"complete\",\"payment_status\":\"paid\",\"amount_total\":250,\"currency\":\"usd\",\"metadata\":{\"order_id\":\"1042\"}}}}",
+            "header": "t=1795000000,v1=8a0e0ce8450df1467e001c6dfba54b817c95299d0a0769c76291b38cc3da17cd",
+            "secret": "whsec_1f0c9a6b3e8d47a2b5c4e9f07d1a3b6c",
+            "now": 1795000000,
+            "valid": false
+        },
+        {
+            "name": "body re-encoded",
+            "body": "{\n    \"id\": \"evt_3Fh8Kq2Lm9Np4Rs7Tv1Wx6Yz\",\n    \"object\": \"event\",\n    \"type\": \"checkout.session.completed\",\n    \"livemode\": false,\n    \"created\": 1795000000,\n    \"data\": {\n        \"object\": {\n            \"id\": \"cs_test_a1B2c3D4e5F6g7H8i9J0k1L2\",\n            \"object\": \"checkout.session\",\n            \"status\": \"complete\",\n            \"payment_status\": \"paid\",\n            \"amount_total\": 2500,\n            \"currency\": \"usd\",\n            \"metadata\": {\n                \"order_id\": \"1042\"\n            }\n        }\n    }\n}",
+            "header": "t=1795000000,v1=8a0e0ce8450df1467e001c6dfba54b817c95299d0a0769c76291b38cc3da17cd",
+            "secret": "whsec_1f0c9a6b3e8d47a2b5c4e9f07d1a3b6c",
+            "now": 1795000000,
+            "valid": false
+        },
+        {
+            "name": "rolled secret: the new one",
+            "body": "{\"id\":\"evt_3Fh8Kq2Lm9Np4Rs7Tv1Wx6Yz\",\"object\":\"event\",\"type\":\"checkout.session.completed\",\"livemode\":false,\"created\":1795000000,\"data\":{\"object\":{\"id\":\"cs_test_a1B2c3D4e5F6g7H8i9J0k1L2\",\"object\":\"checkout.session\",\"status\":\"complete\",\"payment_status\":\"paid\",\"amount_total\":2500,\"currency\":\"usd\",\"metadata\":{\"order_id\":\"1042\"}}}}",
+            "header": "t=1795000000,v1=8a0e0ce8450df1467e001c6dfba54b817c95299d0a0769c76291b38cc3da17cd,v1=bd3f90ff21af7609e2e752e139ad3fe4d36d4f195afe8a7362a057de9a7d35cc",
+            "secret": "whsec_1f0c9a6b3e8d47a2b5c4e9f07d1a3b6c",
+            "now": 1795000000,
+            "valid": true
+        },
+        {
+            "name": "rolled secret: the old one",
+            "body": "{\"id\":\"evt_3Fh8Kq2Lm9Np4Rs7Tv1Wx6Yz\",\"object\":\"event\",\"type\":\"checkout.session.completed\",\"livemode\":false,\"created\":1795000000,\"data\":{\"object\":{\"id\":\"cs_test_a1B2c3D4e5F6g7H8i9J0k1L2\",\"object\":\"checkout.session\",\"status\":\"complete\",\"payment_status\":\"paid\",\"amount_total\":2500,\"currency\":\"usd\",\"metadata\":{\"order_id\":\"1042\"}}}}",
+            "header": "t=1795000000,v1=8a0e0ce8450df1467e001c6dfba54b817c95299d0a0769c76291b38cc3da17cd,v1=bd3f90ff21af7609e2e752e139ad3fe4d36d4f195afe8a7362a057de9a7d35cc",
+            "secret": "whsec_9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b",
+            "now": 1795000000,
+            "valid": true
+        },
+        {
+            "name": "unicode body",
+            "body": "{\"id\":\"evt_9Zy8Xw7Vu6Ts5Rq4Po3Nm2Lk\",\"object\":\"event\",\"type\":\"refund.created\",\"livemode\":false,\"created\":1795000000,\"data\":{\"object\":{\"id\":\"re_test_q1W2e3R4t5Y6u7I8o9P0\",\"object\":\"refund\",\"note\":\"Возврат — złoty ę, 日本語, emoji 🙂\",\"metadata\":{}}}}",
+            "header": "t=1795000000,v1=da1913a5cf7086a192ffe485a4019505885d7ba731b0bb5c7e79552bf34c19be",
+            "secret": "whsec_1f0c9a6b3e8d47a2b5c4e9f07d1a3b6c",
+            "now": 1795000000,
+            "valid": true
+        },
+        {
+            "name": "spaces around the parts",
+            "body": "{\"id\":\"evt_3Fh8Kq2Lm9Np4Rs7Tv1Wx6Yz\",\"object\":\"event\",\"type\":\"checkout.session.completed\",\"livemode\":false,\"created\":1795000000,\"data\":{\"object\":{\"id\":\"cs_test_a1B2c3D4e5F6g7H8i9J0k1L2\",\"object\":\"checkout.session\",\"status\":\"complete\",\"payment_status\":\"paid\",\"amount_total\":2500,\"currency\":\"usd\",\"metadata\":{\"order_id\":\"1042\"}}}}",
+            "header": "t=1795000000, v1=8a0e0ce8450df1467e001c6dfba54b817c95299d0a0769c76291b38cc3da17cd",
+            "secret": "whsec_1f0c9a6b3e8d47a2b5c4e9f07d1a3b6c",
+            "now": 1795000000,
+            "valid": true
+        },
+        {
+            "name": "no v1",
+            "body": "{\"id\":\"evt_3Fh8Kq2Lm9Np4Rs7Tv1Wx6Yz\",\"object\":\"event\",\"type\":\"checkout.session.completed\",\"livemode\":false,\"created\":1795000000,\"data\":{\"object\":{\"id\":\"cs_test_a1B2c3D4e5F6g7H8i9J0k1L2\",\"object\":\"checkout.session\",\"status\":\"complete\",\"payment_status\":\"paid\",\"amount_total\":2500,\"currency\":\"usd\",\"metadata\":{\"order_id\":\"1042\"}}}}",
+            "header": "t=1795000000",
+            "secret": "whsec_1f0c9a6b3e8d47a2b5c4e9f07d1a3b6c",
+            "now": 1795000000,
+            "valid": false
+        },
+        {
+            "name": "no t",
+            "body": "{\"id\":\"evt_3Fh8Kq2Lm9Np4Rs7Tv1Wx6Yz\",\"object\":\"event\",\"type\":\"checkout.session.completed\",\"livemode\":false,\"created\":1795000000,\"data\":{\"object\":{\"id\":\"cs_test_a1B2c3D4e5F6g7H8i9J0k1L2\",\"object\":\"checkout.session\",\"status\":\"complete\",\"payment_status\":\"paid\",\"amount_total\":2500,\"currency\":\"usd\",\"metadata\":{\"order_id\":\"1042\"}}}}",
+            "header": "v1=8a0e0ce8450df1467e001c6dfba54b817c95299d0a0769c76291b38cc3da17cd",
+            "secret": "whsec_1f0c9a6b3e8d47a2b5c4e9f07d1a3b6c",
+            "now": 1795000000,
+            "valid": false
+        },
+        {
+            "name": "v0 only",
+            "body": "{\"id\":\"evt_3Fh8Kq2Lm9Np4Rs7Tv1Wx6Yz\",\"object\":\"event\",\"type\":\"checkout.session.completed\",\"livemode\":false,\"created\":1795000000,\"data\":{\"object\":{\"id\":\"cs_test_a1B2c3D4e5F6g7H8i9J0k1L2\",\"object\":\"checkout.session\",\"status\":\"complete\",\"payment_status\":\"paid\",\"amount_total\":2500,\"currency\":\"usd\",\"metadata\":{\"order_id\":\"1042\"}}}}",
+            "header": "t=1795000000,v0=8a0e0ce8450df1467e001c6dfba54b817c95299d0a0769c76291b38cc3da17cd",
+            "secret": "whsec_1f0c9a6b3e8d47a2b5c4e9f07d1a3b6c",
+            "now": 1795000000,
+            "valid": false
+        },
+        {
+            "name": "empty header",
+            "body": "{\"id\":\"evt_3Fh8Kq2Lm9Np4Rs7Tv1Wx6Yz\",\"object\":\"event\",\"type\":\"checkout.session.completed\",\"livemode\":false,\"created\":1795000000,\"data\":{\"object\":{\"id\":\"cs_test_a1B2c3D4e5F6g7H8i9J0k1L2\",\"object\":\"checkout.session\",\"status\":\"complete\",\"payment_status\":\"paid\",\"amount_total\":2500,\"currency\":\"usd\",\"metadata\":{\"order_id\":\"1042\"}}}}",
+            "header": "",
+            "secret": "whsec_1f0c9a6b3e8d47a2b5c4e9f07d1a3b6c",
+            "now": 1795000000,
+            "valid": false
+        },
+        {
+            "name": "signature upper-cased",
+            "body": "{\"id\":\"evt_3Fh8Kq2Lm9Np4Rs7Tv1Wx6Yz\",\"object\":\"event\",\"type\":\"checkout.session.completed\",\"livemode\":false,\"created\":1795000000,\"data\":{\"object\":{\"id\":\"cs_test_a1B2c3D4e5F6g7H8i9J0k1L2\",\"object\":\"checkout.session\",\"status\":\"complete\",\"payment_status\":\"paid\",\"amount_total\":2500,\"currency\":\"usd\",\"metadata\":{\"order_id\":\"1042\"}}}}",
+            "header": "t=1795000000,v1=8A0E0CE8450DF1467E001C6DFBA54B817C95299D0A0769C76291B38CC3DA17CD",
+            "secret": "whsec_1f0c9a6b3e8d47a2b5c4e9f07d1a3b6c",
+            "now": 1795000000,
+            "valid": false
+        }
+    ]
+}

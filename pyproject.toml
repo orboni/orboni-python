@@ -1,0 +1,45 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "orboni"
+dynamic = ["version"]
+description = "Orboni's API for Python: crypto payments (USDT, USDC, BTC and more) paid straight to your own wallets."
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Orboni", email = "support@orboni.com" }]
+keywords = ["orboni", "crypto", "payments", "usdt", "usdc", "bitcoin", "checkout", "payment-gateway", "webhooks"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Office/Business :: Financial",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://orboni.com/docs/libraries"
+Source = "https://github.com/orboni/orboni-python"
+
+[tool.hatch.version]
+path = "src/orboni/_version.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/orboni"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/orboni", "tests", "README.md", "CHANGELOG.md", "LICENSE", "pyproject.toml"]
+exclude = ["__pycache__"]
